@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.entity.Faculty;
 import ru.hogwarts.school.entity.Student;
@@ -87,6 +88,10 @@ public class StudentService {
 
     public List<Student> getLastStudents(int count) {
         return studentRepository.getLastStudents(count);
+    }
+
+    public List<Student> getStudentsByName(String name) {
+        return studentRepository.getStudentsByName(name);
     }
 
 }
