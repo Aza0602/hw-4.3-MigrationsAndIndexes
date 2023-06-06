@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.entity.Faculty;
 import ru.hogwarts.school.entity.Student;
@@ -36,16 +37,6 @@ public class StudentController {
         return studentService.add(student);
     }
 
-    @PutMapping("/{id}")
-    public Optional<Student> update(@PathVariable Long id, @RequestBody Student student) {
-        return studentService.update(id, student);
-    }
-
-    @DeleteMapping("/{id}")
-    public Optional<Student> deleteById(@PathVariable Long id) {
-        return studentService.deleteById(id);
-    }
-
     @GetMapping(params = {"min", "max"})
     public Collection<Student> getAllByAgeBetween(@RequestParam("min") int minAge, @RequestParam("max") int maxAge) {
         return studentService.getAllByAgeBetween(minAge, maxAge);
@@ -69,6 +60,22 @@ public class StudentController {
     @GetMapping("/lastStudents")
     public List<Student> getLastStudents(@RequestParam(value = "count", defaultValue = "5") int count) {
         return studentService.getLastStudents(count);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name) {
+        List<Student> students = studentService.getStudentsByName(name);
+        return ResponseEntity.ok(students);
+    }
+
+    @PutMapping("/{id}")
+    public Optional<Student> update(@PathVariable Long id, @RequestBody Student student) {
+        return studentService.update(id, student);
+    }
+
+    @DeleteMapping("/{id}")
+    public Optional<Student> deleteById(@PathVariable Long id) {
+        return studentService.deleteById(id);
     }
 
 }
